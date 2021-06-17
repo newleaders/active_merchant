@@ -101,7 +101,7 @@ class RemoteBarclaysEpdqExtraPlusTest < Test::Unit::TestCase
   def test_unsuccessful_purchase
     assert response = @gateway.purchase(@amount, @declined_card, @options)
     assert_failure response
-    assert_equal 'No brand', response.message
+    assert_equal 'No brand or invalid card number', response.message
   end
 
   def test_successful_authorize_with_mastercard
@@ -122,7 +122,7 @@ class RemoteBarclaysEpdqExtraPlusTest < Test::Unit::TestCase
   def test_unsuccessful_capture
     assert response = @gateway.capture(@amount, '')
     assert_failure response
-    assert_equal 'No card no, no exp date, no brand', response.message
+    assert_equal 'No card no, no exp date, no brand or invalid card number', response.message
   end
 
   def test_successful_void
@@ -219,7 +219,7 @@ class RemoteBarclaysEpdqExtraPlusTest < Test::Unit::TestCase
     assert refund = @gateway.refund(@amount + 1, purchase.authorization, @options) # too much refund requested
     assert_failure refund
     assert refund.authorization
-    assert_equal 'Overflow in refunds requests', refund.message
+    assert_equal 'Refunds not allowed for your pspid...contact helpdesk', refund.message
   end
 
   def test_invalid_login
