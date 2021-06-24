@@ -273,9 +273,9 @@ module ActiveMerchant
             add_payment_source(xml, payment, options)
             add_invoice(xml, transaction_type, options)
             add_tax_exempt_status(xml, options)
+            xml.customerIP(options[:ip]) unless empty?(options[:ip])
           end
         end
-        xml.customerIP(options[:ip]) unless empty?(options[:ip])
         add_extra_options_for_cim(xml, options)
       end
 
