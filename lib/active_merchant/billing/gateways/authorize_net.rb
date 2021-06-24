@@ -273,7 +273,6 @@ module ActiveMerchant
             add_payment_source(xml, payment, options)
             add_invoice(xml, transaction_type, options)
             add_tax_exempt_status(xml, options)
-            xml.customerIP(options[:ip]) unless empty?(options[:ip])
           end
         end
         add_extra_options_for_cim(xml, options)
@@ -703,6 +702,7 @@ module ActiveMerchant
 
       def add_extra_options_for_cim(xml, options)
         xml.extraOptions("x_delim_char=#{options[:delimiter]}") if options[:delimiter]
+        xml.extraOptions("x_customer_ip=#{options[:x_customer_ip]}") unless empty?(options[:x_customer_ip])
       end
 
       def add_processing_options(xml, options)
