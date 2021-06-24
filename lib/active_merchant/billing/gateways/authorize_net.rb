@@ -275,6 +275,7 @@ module ActiveMerchant
             add_tax_exempt_status(xml, options)
           end
         end
+        xml.customerIP(options[:ip]) unless empty?(options[:ip])
         add_extra_options_for_cim(xml, options)
       end
 
